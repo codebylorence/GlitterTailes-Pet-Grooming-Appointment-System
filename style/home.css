@@ -1,0 +1,43 @@
+.home-img{
+    width: 700px;
+    padding-left: 100px;
+    margin-top: 50px;
+}
+
+.home-section{
+    display: flex;
+    text-align: left;
+    margin: 0px 60px 200px 60px;
+    padding-top: 50px;
+}
+
+.home-title {
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.home-desc {
+    margin: 40px 0px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.home-signup {
+    text-decoration: underline;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.home-signup:hover {
+    color: purple;
+}
+
+.blue {
+    color: #4db6e9;
+}
+
+.yellow {
+    color: #f3d34a;
+}

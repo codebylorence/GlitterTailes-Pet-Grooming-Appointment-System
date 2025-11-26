@@ -1,0 +1,302 @@
+<?php
+require './db/database.php';
+
+session_start();
+
+function pathTo($destination)
+{
+    echo "<script>window.location.href = 'petowner/$destination.php'</script>";
+}
+
+$_SESSION['status'] = null;
+
+if ($_SESSION['status'] == 'invalid' || empty($_SESSION['status'])) {
+    /* Set Default Invalid */
+    $_SESSION['status'] = 'invalid';
+}
+
+if ($_SESSION['status'] == 'valid') {
+    pathTo('user-home');
+}
+//LOGIN
+// Check if the form has been submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validate that both fields are present
+    if (!empty($_POST['Lusername']) && !empty($_POST['Lpassword'])) {
+        $username = trim($_POST['Lusername']); // Trim to remove unnecessary whitespace
+        $password = trim($_POST['Lpassword']); // Trim to remove unnecessary whitespace
+
+        // Fetch the user record from the database
+        $queryValidate = "SELECT * FROM useraccounts WHERE Username = ?";
+        $stmt = mysqli_prepare($connection, $queryValidate);
+        mysqli_stmt_bind_param($stmt, "s", $username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) > 0) {
+            $rowValidate = mysqli_fetch_array($result);
+
+            // Use password_verify to check the password against the hashed password in the database
+            if (password_verify($password, $rowValidate['Password'])) {
+                $_SESSION['status'] = 'valid';
+                $_SESSION['Username'] = $rowValidate['Username'];
+
+                // Redirect to the user home page
+                pathTo('user-home');
+            } else {
+                $_SESSION['status'] = 'invalid';
+                echo '<script>alert("Invalid username or password.")</script>';
+            }
+        } else {
+            $_SESSION['status'] = 'invalid';
+            echo '<script>alert("Invalid username or password.")</script>';
+        }
+    } else {
+        // Handle missing fields
+        echo '<script>alert("Please fill in both username and password.")</script>';
+    }
+} else {
+    // Handle requests that are not POST
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/genty-demo" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/pp-neue-montreal" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- FontAwaesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+    <!-- Title Page -->
+    <title>GlitterTails</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/nav-bar.css">
+    <link rel="stylesheet" href="./style/home.css">
+    <link rel="stylesheet" href="./style/services.css">
+    <link rel="stylesheet" href="./style/gallery.css">
+    <link rel="stylesheet" href="./style/contact.css">
+    <link rel="stylesheet" href="./style/footer.css">
+    <link rel="icon" type="image/jpg" href="assets/logo-browser.png">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <div class="left-section">
+            <a href="#home"><img src="./assets/logo.png" alt="Logo" class="logo"></a>
+        </div>
+        <nav>
+            <div class="right-section">
+                <ul>
+                    <li><a href="#home" class="nav-button">HOME</a></li>
+                    <li><a href="#services" class="nav-button">SERVICES</a></li>
+                    <li><a href="#gallery" class="nav-button">GALLERY</a></li>
+                    <li><a href="#contact" class="nav-button">CONTACT</a></li>
+                    <div class="nav-separate">
+                        <hr>
+                        <li class="container">
+                            <a href="#login" class="nav-button nav-btn-js">LOGIN / SIGN-UP</a>
+                            <!-- LOG IN -->
+                            <div class="form-container login-form-js">
+                                <form id="register-form" action="./db/create.php" method="post">
+                                    <div class="triangle"></div>
+                                    <p class="create-acc-text">Register Account</p>
+                                    <p class="instr">Fill in the information below</p>
+                                    <input type="text" name="firstname" placeholder="First Name" class="input-info" required>
+                                    <input type="text" name="lastname" placeholder="Last Name" class="input-info" required>
+                                    <input type="text" name="username" placeholder="Username" class="input-info" required>
+                                    <input type="password" name="password" placeholder="Password" class="input-info" required>
+                                    <input type="password" name="confirmpassword" placeholder="Confirm Password" class="input-info">
+                                    <input type="submit" name="create" value="Create Account" class="register-btn">
+                                    <p class="toggle-link" onclick="switchToRegister()">Already have an account? Login</p>
+
+                                </form>
+
+                                <form action="index.php" id="Login-form" style="display: none;" method="post">
+                                    <div class="triangle"></div>
+                                    <p class="create-acc-text">Login Account</p>
+                                    <p class="instr">Fill in the information below</p>
+                                    <input type="text" name="Lusername" placeholder="Username" class="input-info" required>
+                                    <input type="password" name="Lpassword" placeholder="Password" class="input-info" required>
+                                    <input type="submit" value="Login Account" class="register-btn">
+                                    <button onclick="
+                                        window.location.href = 'admin-login.php';
+                                    " class="admin-btn">Admin Login</button>
+                                    <p class="toggle-link" onclick="switchToLogin()">Don't have an account? Register</p>
+                                </form>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home -->
+    <section class="home-section" id="home">
+        <div class="home-desc">
+            <p class="home-title"><span class="blue">Shinning</span> <span class="yellow">Shimmering</span> Tails Grooming Services</p>
+            <p>Your top choice for all your dog and cat needs! We provide high-quality pet supplies and professional grooming services for cats and dogs.</p>
+            <p>Experience our service. <a class="home-signup signup-btn-js">Sign up here</a></p>
+        </div>
+        <div>
+            <img src="assets/home-logo.png" class="home-img">
+        </div>
+    </section>
+    <!-- Services -->
+    <section class="service-section" id="services">
+        <p class="title">SERVICES</p>
+        <div class="service-container">
+            <div class="card">
+                <div class="img-container">
+                    <img src="assets/GlitterTails services1.png" class="service-img">
+                </div>
+                <p class="service-title">FULL GROOMING</p>
+                <ul class="text-container">
+                    <li class="bul">Hair Cut</li>
+                    <li class="bul">Nail Trim</li>
+                    <li class="bul">Nail File</li>
+                    <li class="bul">Ear Cleaning</li>
+                    <li class="bul">Toothbrush</li>
+                    <li class="bul">Bath & Blow Dry</li>
+                    <li class="bul">Cologne Spray</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="assets/GlitterTails services2.png" class="service-img">
+                </div>
+                <p class="service-title">BASIC GROOMING</p>
+                <ul class="text-container">
+                    <li class="bul">Shampoo</li>
+                    <li class="bul">Bath & Blow Dry</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="img-container">
+                    <img src="assets/GlitterTails services3.png" class="service-img">
+                </div>
+                <p class="service-title">INDIVIDUAL SERVICES</p>
+                <div style="display: flex; justify-content: center; gap:20px;">
+                    <ul class="text-container2">
+                        <li class="bul">Hair Cut</li>
+                        <li class="bul">Nail Trim</li>
+                        <li class="bul">Nail File</li>
+                        <li class="bul">Ear Cleaning</li>
+                        <li class="bul">Toothbrush</li>
+                        <li class="bul">Bath & Blow Dry</li>
+                        <li class="bul">Cologne Spray</li>
+                    </ul>
+                    <ul class="text-container2">
+                        <li class="bul">Hair Cut</li>
+                        <li class="bul">Nail Trim</li>
+                        <li class="bul">Nail File</li>
+                        <li class="bul">Ear Cleaning</li>
+                        <li class="bul">Toothbrush</li>
+                        <li class="bul">Bath & Blow Dry</li>
+                        <li class="bul">Cologne Spray</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Gallery -->
+    <section class="gallery-section" id="gallery">
+        <p class="gallery-title">GALLERY</p>
+        <div class="gallery">
+            <div class="gallery-card">
+                <img src="./assets/Gallery Pics/pic-1.jpg" class="gallery_row" alt="pic1">
+                <img src="./assets/Gallery Pics/pic-2.jpg" class="gallery_row" alt="pic2">
+                <img src="./assets/Gallery Pics/pic-3.jpg" class="gallery_row" alt="pic3">
+            </div>
+            <div class="gallery-card">
+                <img src="./assets/Gallery Pics/pic-4.jpg" class="gallery_row" alt="pic4">
+                <img src="./assets/Gallery Pics/pic-5.jpg" class="gallery_row" alt="pic5">
+                <img src="./assets/Gallery Pics/pic-6.jpg" class="gallery_row" alt="pic6">
+            </div>
+            <div class="gallery-card">
+                <img src="./assets/Gallery Pics/pic-7.jpg" class="gallery_row" alt="pic7">
+                <img src="./assets/Gallery Pics/pic-8.jpg" class="gallery_row" alt="pic8">
+                <img src="./assets/Gallery Pics/pic-9.jpg" class="gallery_row" alt="pic9">
+            </div>
+            <div class="gallery-card">
+                <img src="./assets/Gallery Pics/pic-10.jpg" class="gallery_row" alt="pic10">
+                <img src="./assets/Gallery Pics/pic-11.jpg" class="gallery_row" alt="pic11">
+                <img src="./assets/Gallery Pics/pic-12.jpg" class="gallery_row" alt="pic12">
+            </div>
+        </div>
+    </section>
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+        <p class="title">CONTACT</p>
+        <div class="contact-bg">
+            <div class="contact-card">
+                <div class="contact-item">
+                    <img src="assets/call.png" alt="call icon" class="contact-icons">
+                    <p class="contact-text">09536060629</p>
+                </div>
+                <div class="email-item">
+                    <img src="assets/message.png" alt="Email icon" class="contact-icons">
+                    <p class="contact-text">sstails@gmail.com</p>
+                </div>
+                <hr class="divider">
+                <p class="location">Located at:</p>
+                <div class="location-item">
+                    <img src="assets/location.png" alt="Location icon" class="contact-icons">
+                    <p class="contact-text">Block 4 Lot 1, Ilocos St., <br> Brgy Maderan, GMA, Cavite</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column-a">
+                <!-- About Us -->
+                <h3 class="about-title">About Us</h3>
+                <p class="about-desc">Our team consists of highly trained and compassionate professionals who treat every pet with the love and care they deserve. We use only pet-friendly, high-quality products to ensure the safety and well-being of your furry companions. <br> <br> At Shining Shimmering Tails, we understand that every pet is unique. That's why we tailor our grooming techniques to meet the specific needs and comfort of each animal.</p>
+            </div>
+            <div class="footer-column">
+                <!-- Socials -->
+                <h3 class="about-title">Links</h3>
+                <ul class="links">
+                    <li class="link-media"><i class="fa-brands fa-square-facebook fa-xl" style="color: #363636;"></i>
+                        <a href="https://www.facebook.com/share/1BGvgYukLA/" target="_blank">Facebook Page</a>
+                    </li>
+                    <li class="link-media-2"><i class="fa-solid fa-location-dot fa-xl"></i>
+                        <a href="https://maps.app.goo.gl/yULitNHodnR9udAU8" target="_blank">Google Map</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <!-- Map -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3866.4077322926087!2d120.99830697456753!3d14.287726484661222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d700175a80ab%3A0x63c6418fc8a94f72!2sShining%20Shimmering%20Tails!5e0!3m2!1sen!2sph!4v1737082689547!5m2!1sen!2sph" width="450" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="foot-desc">&copy; 2025 Shining Shimmering Tails. &nbsp; &nbsp;All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="./script/script.js"></script>
+    <script src="./script/login.js"></script>
+
+
+
+</body>
+
+</html>

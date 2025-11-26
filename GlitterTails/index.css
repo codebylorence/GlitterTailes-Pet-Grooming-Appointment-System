@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'PP Neue Montreal', sans-serif;
+    font-style: normal;
+    scroll-behavior: smooth;
+}
+
+
+section{
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@font-face {
+    font-family: 'Genty Sans';
+    src: url(assets/fonts/genty-sans-regular.ttf);
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url(assets/fonts/Poppins-Regular.otf);
+}

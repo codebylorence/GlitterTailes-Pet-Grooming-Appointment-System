@@ -1,0 +1,67 @@
+.title{
+    font-size: 29px;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0px 40px 0px;
+    padding-top: 100px;
+    font-family: 'Genty Sans';
+}
+  
+/* services */
+.service-section{
+    margin: 0px 40px 200px 40px;
+    margin-top: -200px;
+}
+
+.service-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 120px;
+}
+
+.card {
+    background-color: #fada7a;
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.service-img {
+    width: 100%x;
+}
+
+.service-title{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 8px;
+    font-family: "genty sans";
+}
+
+.img-container{
+    display: flex;
+    background-color: #81bfda;
+    width: 100%;
+    height: 250px;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.text-container2 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.bul {
+    font-size: 16px;
+}

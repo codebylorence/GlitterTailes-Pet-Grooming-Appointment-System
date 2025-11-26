@@ -1,0 +1,50 @@
+
+.usertable-title{
+  font-size: 16px;
+  width: 200px;
+  text-align: center;
+}
+
+th {
+  border: none;
+  background-color:  #4db6e9;
+  color: #333333;
+  padding: 20px 0px 30px 0px;
+}
+
+tr td{
+  border: none;
+  border-bottom: 2px solid #ddd;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.action-btn{
+  display: flex;
+  padding: 10px 0px 10px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.delete-btn, .edit-btn{
+  border: none;
+  width: 50px;
+  height: 26px;
+  font-size: 13px;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.delete-btn{
+  background-color:  #D11A2A;
+}
+
+.edit-btn{
+  background-color:  green
+}

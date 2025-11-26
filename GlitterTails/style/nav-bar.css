@@ -1,0 +1,140 @@
+.left-section{
+    margin-top: 10px;
+}
+
+.logo {
+    width: 100%;
+    margin-right: 30px;
+    height: 100px;
+    object-fit: contain;
+}
+
+header{
+    display: flex;
+    background-color:#f3d34a;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0px 200px 0px 200px;
+}
+
+ul, li, .nav-button{
+    text-decoration: none;
+    list-style: none;
+    color: black;
+    font-size: 13px;
+}
+
+.nav-button{
+    margin: 0px 30px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #b3a477;
+}
+
+
+ul{
+    display: flex;
+}
+
+.nav-button:hover, 
+.nav-button.active{
+    color: black;
+    transition: .3s;
+}
+
+hr{
+    border-color: gray;
+}
+
+.nav-separate{
+    display: flex;
+}
+
+
+/* login form */
+.container{
+    position: relative;
+}
+  
+.create-acc-text{
+    font-size: 18px;
+    font-family: "Poppins", serif;
+} 
+  
+.instr{
+    font-size: 14px;
+    font-family: "Poppins", serif;
+}
+  
+.input-info{
+    height: 30px;
+    padding-left: 10px;
+    background-color: white;
+    border: none;
+    outline: none;
+}::placeholder{
+    font-family: "Poppins", serif;
+}
+  
+.register-btn{
+    font-family: "Poppins", serif;
+    background-color:  #4db6e9;
+    color: white;
+    border: none;
+    height: 30px;
+    margin-top: 15px;
+}
+  
+.login-here{
+    text-decoration: none;
+    color: #0000ff;
+    cursor: pointer;
+}
+  
+.triangle {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 30.5px 30px 30.5px;
+    border-color: transparent transparent #f2f0ee transparent;
+    transform: rotate(0deg);
+    top: -20px;
+    left: 120px;
+} 
+  
+.form-container{
+    width: 300px;
+    height: 380px;
+    background-color: #f2f0ee;
+    position: absolute;
+    top: 40px;
+    left: -90px;
+    border-radius: 13px;
+    opacity: 0;
+}
+  
+#Login-form, #register-form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    row-gap: 11px;
+}
+
+.showLogin{
+    opacity: 1;
+}
+
+.toggle-link {
+    margin-top: 2px;
+    display: inline-block;
+    color: #007bff;
+    cursor: pointer;
+}
+/* login form */
