@@ -1,11 +1,14 @@
-*{
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-  margin-left: 300px;
-  margin-right: 300px;
-  margin-top: 30px;
-  background-color: #EBEBEB;
+body {
+  margin-left: 280px;
+  margin-right: 50px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  font-family: 'Poppins', Arial, sans-serif;
 }

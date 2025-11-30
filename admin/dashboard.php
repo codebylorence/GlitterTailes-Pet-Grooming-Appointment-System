@@ -281,47 +281,47 @@ mysqli_close($connection);
 </head>
 
 <body>
-  <div>
-    <section class="side-bar">
-      <div class="admin-profile">
-        <div class="admin-info">
-          <div class="img-container">
-            <div class="img-border">
-              <img src="../assets/people.png" class="admin-img">
-            </div>
-          </div>
-          <div class="admin-acc">
-            <p class="admin-name"><?php echo htmlspecialchars($_SESSION['Username']); ?></p>
-            <p class="admin-email">admin@sstails.com</p>
+  <section class="side-bar">
+    <div class="admin-profile">
+      <div class="admin-info">
+        <div class="img-container">
+          <div class="img-border">
+            <img src="../assets/people.png" class="admin-img">
           </div>
         </div>
-        <div>
-          <form action="../logout-admin.php" method="post">
-            <input type="submit" value="Log out" class="logout-btn">
-          </form>
+        <div class="admin-acc">
+          <p class="admin-name"><?php echo htmlspecialchars($_SESSION['Username']); ?></p>
+          <p class="admin-email">admin@sstails.com</p>
         </div>
       </div>
-      <hr class="line">
-      <div class="sidebar-btns">
-        <div class="side-btn-container dashboard-js">
-          <div><img src="../assets/menu.png" class="img-btn"></div>
-          <div class="side-btn">Dashboard</div>
-        </div>
-        <div class="side-btn-container schedule-js">
-          <div><img src="../assets/event.png" class="img-btn"></div>
-          <div class="side-btn">Schedule</div>
-        </div>
-        <div class="side-btn-container appointment-js">
-          <div><img src="../assets/ribbon.png" class="img-btn"></div>
-          <div class="side-btn">Appointment</div>
-        </div>
-        <div class="side-btn-container petowners-js">
-          <div><img src="../assets/dog.png" class="img-btn"></div>
-          <div class="side-btn">Pet Owners</div>
-        </div>
+      <div>
+        <form action="../logout-admin.php" method="post">
+          <input type="submit" value="Log out" class="logout-btn">
+        </form>
       </div>
-    </section>
-    <section>
+    </div>
+    <hr class="line">
+    <div class="sidebar-btns">
+      <div class="side-btn-container dashboard-js active">
+        <div><img src="../assets/menu.png" class="img-btn"></div>
+        <div class="side-btn">Dashboard</div>
+      </div>
+      <div class="side-btn-container schedule-js">
+        <div><img src="../assets/event.png" class="img-btn"></div>
+        <div class="side-btn">Schedule</div>
+      </div>
+      <div class="side-btn-container appointment-js">
+        <div><img src="../assets/ribbon.png" class="img-btn"></div>
+        <div class="side-btn">Appointment</div>
+      </div>
+      <div class="side-btn-container petowners-js">
+        <div><img src="../assets/dog.png" class="img-btn"></div>
+        <div class="side-btn">Pet Owners</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
       <div class="grid-container">
         <main class="main-container">
           <div class="main-title">
@@ -362,10 +362,10 @@ mysqli_close($connection);
           </div>
         </main>
       </div>
-    </section>
+  </section>
 
-    <script src="../script/adminRedirect.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+  <script src="../script/adminRedirect.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
     <script>
       // Prepare the data for the chart dynamically
       const serviceTypes = <?php echo json_encode(array_column($serviceTypeCounts, 'Service_Type')); ?>;
@@ -413,7 +413,6 @@ mysqli_close($connection);
       );
       barChart.render();
     </script>
-  </div>
 </body>
 
 </html>

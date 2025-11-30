@@ -11,20 +11,28 @@
   <link rel="stylesheet" href="../styles/admin-sidebar.css">
   <link rel="stylesheet" href="../styles/pet-owner.css">
   <style>
-    h1{
-      margin-bottom: 20px;
-    }
-
-    *{
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    body{
+    body {
+      margin-top: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       margin-left: 280px;
-      margin-right: 40px;
-      margin-top: 20px;
-      background-color: #EBEBEB;
+      font-family: 'Poppins', sans-serif;
+      padding: 40px 20px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #28496b;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     table th{
@@ -34,35 +42,47 @@
   <title>Admin</title>
 </head>
 <body>
-    <div>
-      <section class="side-bar">
-        <div class="admin-profile">
-          <div class="admin-info">
-             <div class="img-container">
-              <div class="img-border">
-                <img src="../assets/people.png" class="admin-img">
-              </div>
-             </div>
-             <div class="admin-acc">
-              <p class="admin-name"><?php echo $_SESSION['Username']; ?></p>
-              <p class="admin-email">admin@sstails.com</p>
-             </div>
+  <section class="side-bar">
+    <div class="admin-profile">
+      <div class="admin-info">
+        <div class="img-container">
+          <div class="img-border">
+            <img src="../assets/people.png" class="admin-img">
           </div>
-          <div>
-          <form action="../logout.php" method="post">
-            <input type="submit" value="Log out" class="logout-btn">
-          </form>
         </div>
+        <div class="admin-acc">
+          <p class="admin-name"><?php echo $_SESSION['Username']; ?></p>
+          <p class="admin-email">admin@sstails.com</p>
         </div>
-        <hr class="line">
-        <div class="sidebar-btns">
-          <div class="side-btn-container dashboard-js"><div><img src="../assets/menu.png" class="img-btn"></div><div class="side-btn">Dashboard</div></div>
-          <div class="side-btn-container schedule-js"><div><img src="../assets/event.png" class="img-btn"></div><div class="side-btn">Schedule</div></div>
-          <div class="side-btn-container appointment-js"><div><img src="../assets/ribbon.png" class="img-btn"></div><div class="side-btn">Appointment</div></div>
-          <div class="side-btn-container petowners-js"><div><img src="../assets/dog.png" class="img-btn"></div><div class="side-btn">Pet Owners</div></div>
-          </div>
-      </section>
-      <section>
+      </div>
+      <div>
+        <form action="../logout-admin.php" method="post">
+          <input type="submit" value="Log out" class="logout-btn">
+        </form>
+      </div>
+    </div>
+    <hr class="line">
+    <div class="sidebar-btns">
+      <div class="side-btn-container dashboard-js">
+        <div><img src="../assets/menu.png" class="img-btn"></div>
+        <div class="side-btn">Dashboard</div>
+      </div>
+      <div class="side-btn-container schedule-js">
+        <div><img src="../assets/event.png" class="img-btn"></div>
+        <div class="side-btn">Schedule</div>
+      </div>
+      <div class="side-btn-container appointment-js">
+        <div><img src="../assets/ribbon.png" class="img-btn"></div>
+        <div class="side-btn">Appointment</div>
+      </div>
+      <div class="side-btn-container petowners-js active">
+        <div><img src="../assets/dog.png" class="img-btn"></div>
+        <div class="side-btn">Pet Owners</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
         <h1>Pet Owner's Accounts</h1>
     <table class="read-main" border="1" style="background-color: white; border: none;   border-collapse: collapse; width: 100%;">
       <tr>
@@ -99,7 +119,7 @@
       <?php } ?>
     </table>
   </section>
-      <script src="../script/adminRedirect.js"></script>
-    </div>
+
+  <script src="../script/adminRedirect.js"></script>
 </body>
 </html>
